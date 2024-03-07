@@ -1,0 +1,33 @@
+service: check-billing
+
+frameworkVersion: '3'
+
+package:
+  patterns:
+    - '!resources/**'
+    - '!node_modules/**'
+    - '!ci/**'
+    - '!test/**'
+    - '!*.json'
+    - '!config/**'
+    - '!Pipfile*'
+
+plugins:
+  - serverless-plugin-log-retention
+  - serverless-iam-roles-per-function
+custom:
+  env: ${file(config/${opt:stage, 'dev'}.yaml)}
+  logRetentionInDays: 30
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: eu-west-1
+  stage: ${opt:stage, 'dev'}
+
+
+functions:
+  - ${file(resources/checkthebill/function.yaml)}
+
+resources:
+  - ${file(resources/checkthebill/functionRole.yaml)}

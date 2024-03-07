@@ -1,0 +1,13 @@
+CheckTheBillFunction:
+  handler: src/checkthebill/function.lambda_handler
+  runtime: python3.11
+  memorySize: 256
+  timeout: 30
+  role: CheckTheBillRole
+  environment:
+    SNS_TOPIC: ${self:custom.env.Chatboot_SNS_TOPIC_ARN}
+  events:
+    - schedule:
+        enabled: true
+        rate: ${self:custom.env.EBCRON}
+    

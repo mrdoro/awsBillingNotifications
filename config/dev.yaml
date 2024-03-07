@@ -1,0 +1,2 @@
+Chatboot_SNS_TOPIC_ARN: arn:aws:sns:XXXXX #Your SNS Topic ARN
+EBCRON: 'cron(0 8 * * ? *)' # Run the function every day at 8:00 AM
